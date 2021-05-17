@@ -14,10 +14,8 @@ function uploadImage(e){
     filereader.onload = () =>{
         img.src = filereader.result;
         img.onload = () => {
-            mycanvas.width = img.width
+            mycanvas.width = img.width;
             mycanvas.height = img.height;
-            console.log(mycanvas.width)
-            console.log(mycanvas.height)
             context.drawImage(img,0,0)
         }
     }
@@ -128,7 +126,13 @@ function download() {
     tempLink.click()
     // document.body.removeChild(tempLink)
 
-
+}
+function deleteImage(){
+    var img = context.createImageData(mycanvas.width, mycanvas.height);
+    for (var i = img.data.length; --i >= 0; )
+        img.data[i] = 0;
+        context.putImageData(img, 0, 0);
+        mycanvas.height=150;
 }
 
 document.querySelectorAll("button")[0].addEventListener("click", grayscaleEffect)
@@ -142,3 +146,4 @@ document.querySelector("#clear").addEventListener("click", clear)
 document.querySelector("#download").addEventListener("click", download)
 
 document.getElementById("uploader").addEventListener("change", uploadImage)
+document.getElementById("remove").addEventListener("click", deleteImage)
